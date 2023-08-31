@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Setting character encoding for the document -->
+        <meta charset="utf-8" />
+        <!-- Title of the Web Page -->
+        <title>MQTT Web App</title>
+        <!-- Link to the external CSS stylesheet -->
+        <link rel="stylesheet" href="style.css" />
+        <!-- Link to MQTT library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.min.js" defer></script>
+        <!-- Link to custom JavaScript for MQTT connection handling -->
+        <script src="mqttConnectionHandler.js" defer></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1>MQTT Dashboard</h1>
+            </header>
+            <section>
+                <form id="Connection-information-form">
+                    <fieldset>
+                        <legend>Connection Information</legend>
+                        <label>
+                            Hostname or IP address:
+                            <input id="host" type="text" name="host" value="test.mosquitto.org" />
+                        </label>
+                        <label>
+                            Port Number:
+                            <input id="port" type="text" name="port" value="8080" />
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Authentication</legend>
+                        <label>
+                            Username:
+                            <input id="username" type="text" name="Username" placeholder="Username" />
+                        </label>
+                        <label>
+                            Password:
+                            <input id="password" type="password" name="Password" placeholder="Password" />
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Subscription</legend>
+                        <label>
+                            Topic:
+                            <input id="topic_s" type="text" name="topic_s" value="Sensor_KN/#" />
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Publish</legend>
+                        <label>
+                            Topic:
+                            <input id="topic_p" type="text" name="topic_p" placeholder="Topic for publishing" />
+                        </label>
+                        <label>
+                            Message:
+                            <input id="Message" type="text" name="message" placeholder="Message to publish" />
+                        </label>
+                    </fieldset>
+                    <button type="button" id="connectButton">Connect</button>
+                    <button type="button" id="disconnectButton">Disconnect</button>
+                    <button type="button" id="publishButton">Publish Message</button>
+                </form>
+            </section>
+            <!-- Section to display MQTT messages and logs -->
+            <section id="messages"></section>
+        </div>
+    </body>
+</html>
