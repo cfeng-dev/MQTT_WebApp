@@ -55,8 +55,10 @@ function onMessageArrived(message) {
 
 // Function to disconnect from the MQTT broker
 function startDisconnect() {
-    client.disconnect();
-    appendToMessages("Disconnected");
+    if (client && client.isConnected()) {
+        client.disconnect();
+        appendToMessages("Disconnected");
+    }
 }
 
 // Function to publish an MQTT message
