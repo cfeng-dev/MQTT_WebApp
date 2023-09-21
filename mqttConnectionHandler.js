@@ -16,8 +16,8 @@ function startConnect() {
     const passwordId = document.getElementById("password").value;
 
     // Display connection information
-    appendToMessages(`Connecting to ${host} on port ${port}`);
-    appendToMessages(`Using the client ID ${clientID}`);
+    appendToMessages(`Connecting to "${host}" on port "${port}"`);
+    appendToMessages(`Using the client ID: "${clientID}"`);
 
     // Create new MQTT client instance
     client = new Paho.MQTT.Client(host, port, clientID);
@@ -35,7 +35,7 @@ function startConnect() {
 // Callback function on successful connection
 function OnConnect() {
     const topic = document.getElementById("topic_s").value;
-    appendToMessages(`Subscribing to topic ${topic}`);
+    appendToMessages(`Subscribing to topic: ${topic}`);
     client.subscribe(topic);
 }
 
@@ -61,6 +61,15 @@ function startDisconnect() {
     }
 }
 
+// Function to check and display the connection status of the MQTT client
+function checkConnectionStatus() {
+    if (client.isConnected()) {
+        appendToMessages("Client is connected");
+    } else {
+        appendToMessages("Client is not connected");
+    }
+}
+
 // Function to publish an MQTT message
 function publishMessage() {
     const msg = document.getElementById("Message").value;
@@ -79,5 +88,6 @@ function publishMessage() {
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("connectButton").addEventListener("click", startConnect);
     document.getElementById("disconnectButton").addEventListener("click", startDisconnect);
+    document.getElementById("checkConnectionButton").addEventListener("click", checkConnectionStatus);
     document.getElementById("publishButton").addEventListener("click", publishMessage);
 });
