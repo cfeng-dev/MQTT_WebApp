@@ -27,6 +27,7 @@ function startConnect() {
     // Set callback functions
     client.connect({
         onSuccess: OnConnect,
+        onFailure: onConnectFailure,
         userName: userId,
         password: passwordId,
     });
@@ -37,6 +38,11 @@ function OnConnect() {
     const topic = document.getElementById("topic_s").value;
     appendToMessages(`Subscribing to topic: ${topic}`);
     client.subscribe(topic);
+}
+
+// Callback function on connection failure
+function onConnectFailure(error) {
+    appendToMessages(`Connection failed: ${error.errorMessage}`);
 }
 
 // Callback function on connection loss
