@@ -21,12 +21,12 @@ function startConnect() {
 
     // Create new MQTT client instance
     client = new Paho.MQTT.Client(host, port, clientID);
-    client.OnConnectionLost = OnConnectionLost;
+    client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
 
     // Set callback functions
     client.connect({
-        onSuccess: OnConnect,
+        onSuccess: onConnect,
         onFailure: onConnectFailure,
         userName: userId,
         password: passwordId,
@@ -34,7 +34,7 @@ function startConnect() {
 }
 
 // Callback function on successful connection
-function OnConnect() {
+function onConnect() {
     const topic = document.getElementById("topic_s").value;
     appendToMessages(`Subscribing to topic: ${topic}`);
     client.subscribe(topic);
@@ -46,7 +46,7 @@ function onConnectFailure(error) {
 }
 
 // Callback function on connection loss
-function OnConnectionLost(responseObject) {
+function onConnectionLost(responseObject) {
     appendToMessages("Error: Connection is lost...");
     if (responseObject && responseObject.errorMessage) {
         appendToMessages(`Error: ${responseObject.errorMessage}`);
