@@ -90,10 +90,17 @@ function publishMessage() {
     appendToMessages(`Message to topic ${topic} is sent`);
 }
 
+// Function to clear the content of the "messages" DOM element
+function clearDisplay() {
+    const messagesElem = document.getElementById("messages");
+    messagesElem.innerHTML = ""; // Clear the content of "messages"
+}
+
 // EventListener
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("connectButton").addEventListener("click", startConnect);
     document.getElementById("disconnectButton").addEventListener("click", startDisconnect);
     document.getElementById("checkConnectionButton").addEventListener("click", checkConnectionStatus);
     document.getElementById("publishButton").addEventListener("click", publishMessage);
+    document.getElementById("clearButton").addEventListener("click", clearDisplay);
 });
