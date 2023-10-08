@@ -78,8 +78,14 @@ function checkConnectionStatus() {
 
 // Function to publish an MQTT message
 function publishMessage() {
-    const msg = document.getElementById("Message").value;
-    const topic = document.getElementById("topic_p").value;
+    const msg = document.getElementById("Message").value.trim();
+    const topic = document.getElementById("topic_p").value.trim();
+
+    // Check if the topic and message are not empty
+    if (topic === "" || msg === "") {
+        appendToMessages("Error: Topic and Message are required.");
+        return;
+    }
 
     // Create new MQTT message instance
     const Message = new Paho.MQTT.Message(msg);
