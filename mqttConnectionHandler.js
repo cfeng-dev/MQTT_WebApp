@@ -47,8 +47,8 @@ function onConnectFailure(error) {
 
 // Callback function on connection loss
 function onConnectionLost(responseObject) {
-    appendToMessages("Error: Connection is lost...");
-    if (responseObject && responseObject.errorMessage) {
+    if (responseObject && responseObject.errorMessage && responseObject.errorMessage !== "AMQJSC0000I OK.") {
+        appendToMessages("Error: Connection is lost...");
         appendToMessages(`Error: ${responseObject.errorMessage}`);
     }
 }
