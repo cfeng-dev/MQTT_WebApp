@@ -55,8 +55,21 @@ function onConnectionLost(responseObject) {
 
 // Callback function on receiving an MQTT message
 function onMessageArrived(message) {
-    console.log(`OnMessageArrived: ${message.payloadString}`);
-    appendToMessages(`Topic: ${message.destinationName} | Message: ${message.payloadString}`);
+    // Check whether the received topic is "Sensor_KN/Winddata"
+    if (message.destinationName === "Sensor_KN/Winddata") {
+        try {
+            const windData = JSON.parse(message.payloadString);
+
+            if (windData && windData.Received) {
+                const { windSpeed, windDirection, timestamp } = windData.Received;
+                appendToMessages(`Wind Speed: ${windSpeed} m/s, Wind Direction: ${windDirection}°, Timestamp: ${timestamp}`);
+            }
+        } catch (e) {
+            appendToMessages("Error: Received message is not in valid JSON format");
+        }
+    } else {
+        appendToMessages(`Topic: ${message.destinationName} | Message: ${message.payloadString}`);
+    }
 }
 
 // Function to disconnect from the MQTT broker
